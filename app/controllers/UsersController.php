@@ -53,24 +53,38 @@ class UsersController extends Controller {
         return;
     }
 
-    // ✅ If form submitted
+    // ✅ If form is submitted
     if ($this->io->method() === 'post') {
-        // Get form inputs safely
+
+        // Sanitize and get input values
         $username = trim($this->io->post('username'));
         $email    = trim($this->io->post('email'));
         $password = $this->io->post('password');
-        $role     = $this->io->post('role') ?? 'user'; // default to 'user' if not set
+        $role     = $this->io->post('role') ?? 'user'; // Default to 'user' if not set
 
-        // Basic validation
+        // ✅ Step 1: Validate required fields
         if (empty($username) || empty($email) || empty($password)) {
-            echo "Please fill out all required fields.";
+            echo "<p style='color:red;'>⚠️ Please fill in all required fields.</p>";
             return;
         }
 
-        // Hash password
+        // ✅ Step 2: Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "<p style='color:red;'>⚠️ Invalid email format.</p>";
+            return;
+        }
+
+        // ✅ Step 3: Check for duplicate email
+        $existing_user = $this->UsersModel->get_user_by_email($email);
+        if ($existing_user) {
+            echo "<p style='color:red;'>⚠️ Email already exists. Please use another one.</p>";
+            return;
+        }
+
+        // ✅ Step 4: Hash the password
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // Prepare data for insert
+        // ✅ Step 5: Prepare data for insertion
         $data = [
             'username'   => $username,
             'email'      => $email,
@@ -79,20 +93,19 @@ class UsersController extends Controller {
             'created_at' => date('Y-m-d H:i:s')
         ];
 
-        // Insert into database
+        // ✅ Step 6: Insert to database
         if ($this->UsersModel->insert($data)) {
-            // ✅ Redirect back to user list
+            echo "<p style='color:green;'>✅ User created successfully!</p>";
             redirect('/users');
         } else {
-            echo '⚠️ Failed to create user. Please try again.';
+            echo "<p style='color:red;'>⚠️ Failed to create user. Please try again later.</p>";
         }
 
     } else {
-        // ✅ Show create form
+        // ✅ Show the create form
         $this->call->view('users/create');
     }
-}
-
+}   
 
     // ✅ Admin only
     public function update($id)
