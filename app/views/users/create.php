@@ -110,16 +110,100 @@
     }
   </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create User</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7faf7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .create-user {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      width: 360px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-bottom: 24px;
+    }
+
+    .inputBox {
+      margin-bottom: 16px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #43a047;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    .link-wrapper {
+      margin-top: 20px;
+    }
+
+    .link-wrapper a {
+      text-decoration: none;
+      color: #2e7d32;
+      font-size: 14px;
+    }
+
+    .link-wrapper a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
 <body>
   <div class="create-user">
     <h2>Create User</h2>
     <form method="POST" action="<?= site_url('users/create'); ?>">
       <div class="inputBox">
-        <input type="text" name="username" placeholder="Username" required value="<?= isset($username) ? html_escape($username) : '' ?>">
+        <input type="text" name="username" placeholder="Username" required 
+               value="<?= isset($username) ? html_escape($username) : '' ?>">
       </div>
 
       <div class="inputBox">
-        <input type="email" name="email" placeholder="Email" required value="<?= isset($email) ? html_escape($email) : '' ?>">
+        <input type="email" name="email" placeholder="Email" required 
+               value="<?= isset($email) ? html_escape($email) : '' ?>">
+      </div>
+
+      <!-- Default role hidden -->
+      <input type="hidden" name="role" value="<?= isset($role) ? html_escape($role) : 'user' ?>">
+
+      <!-- Optional password input -->
+      <div class="inputBox">
+        <input type="password" name="password" placeholder="Password" required>
       </div>
 
       <button type="submit">Create User</button>
@@ -130,4 +214,6 @@
     </div>
   </div>
 </body>
+</html>
+
 </html>

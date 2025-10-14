@@ -46,33 +46,53 @@ class UsersController extends Controller {
 
     // ✅ Admin only
     public function create()
-    {
-        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-            show_error('Access denied. Only admin can add users.', 403);
+{
+    // ✅ Only admin can create users
+    if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+        show_error('Access denied. Only admin can add users.', 403);
+        return;
+    }
+
+    // ✅ If form submitted
+    if ($this->io->method() === 'post') {
+        // Get form inputs safely
+        $username = trim($this->io->post('username'));
+        $email    = trim($this->io->post('email'));
+        $password = $this->io->post('password');
+        $role     = $this->io->post('role') ?? 'user'; // default to 'user' if not set
+
+        // Basic validation
+        if (empty($username) || empty($email) || empty($password)) {
+            echo "Please fill out all required fields.";
             return;
         }
 
-        if ($this->io->method() === 'post') {
-            $username = $this->io->post('username');
-            $email = $this->io->post('email');  
+        // Hash password
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-            $data = [
-                'username' => $username,
-                'email' => $email,
-                'role' => $this->io->post('role'),
-                'password' => password_hash($this->io->post('password'), PASSWORD_BCRYPT),
-                'created_at' => date('Y-m-d H:i:s')
-            ];
+        // Prepare data for insert
+        $data = [
+            'username'   => $username,
+            'email'      => $email,
+            'role'       => $role,
+            'password'   => $hashedPassword,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
 
-            if ($this->UsersModel->insert($data)) {
-                redirect('/users');
-            } else {
-                echo 'Failed to create user.';
-            }
+        // Insert into database
+        if ($this->UsersModel->insert($data)) {
+            // ✅ Redirect back to user list
+            redirect('/users');
         } else {
-            $this->call->view('users/create');
+            echo '⚠️ Failed to create user. Please try again.';
         }
+
+    } else {
+        // ✅ Show create form
+        $this->call->view('users/create');
     }
+}
+
 
     // ✅ Admin only
     public function update($id)
