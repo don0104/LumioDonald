@@ -45,7 +45,7 @@ class UsersController extends Controller {
 
 
     // ✅ Admin only
-    public function create()
+   public function create()
 {
     // ✅ Only admin can create users
     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
@@ -56,35 +56,58 @@ class UsersController extends Controller {
     // ✅ If form is submitted
     if ($this->io->method() === 'post') {
 
-        // Sanitize and get input values
+        // Get form inputs
         $username = trim($this->io->post('username'));
         $email    = trim($this->io->post('email'));
         $password = $this->io->post('password');
-        $role     = $this->io->post('role') ?? 'user'; // Default to 'user' if not set
+        $role     = $this->io->post('role') ?? 'user'; // default role
 
-        // ✅ Step 1: Validate required fields
+        // ✅ Step 1: Validate empty fields
         if (empty($username) || empty($email) || empty($password)) {
-            echo "<p style='color:red;'>⚠️ Please fill in all required fields.</p>";
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => '⚠️ Please fill in all required fields.'
+            ];
+            redirect('/users/create');
             return;
         }
 
         // ✅ Step 2: Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "<p style='color:red;'>⚠️ Invalid email format.</p>";
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => '⚠️ Invalid email format.'
+            ];
+            redirect('/users/create');
             return;
         }
 
-        // ✅ Step 3: Check for duplicate email
-        $existing_user = $this->UsersModel->get_user_by_email($email);
-        if ($existing_user) {
-            echo "<p style='color:red;'>⚠️ Email already exists. Please use another one.</p>";
+        // ✅ Step 3: Check for duplicate username
+        $existing_username = $this->UsersModel->get_user_by_username($username);
+        if ($existing_username) {
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => '⚠️ Username already exists. Please choose another one.'
+            ];
+            redirect('/users/create');
             return;
         }
 
-        // ✅ Step 4: Hash the password
+        // ✅ Step 4: Check for duplicate email
+        $existing_email = $this->UsersModel->get_user_by_email($email);
+        if ($existing_email) {
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => '⚠️ Email already exists. Please use another one.'
+            ];
+            redirect('/users/create');
+            return;
+        }
+
+        // ✅ Step 5: Hash password
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // ✅ Step 5: Prepare data for insertion
+        // ✅ Step 6: Insert to DB
         $data = [
             'username'   => $username,
             'email'      => $email,
@@ -93,19 +116,25 @@ class UsersController extends Controller {
             'created_at' => date('Y-m-d H:i:s')
         ];
 
-        // ✅ Step 6: Insert to database
         if ($this->UsersModel->insert($data)) {
-            echo "<p style='color:green;'>✅ User created successfully!</p>";
+            $_SESSION['flash'] = [
+                'type' => 'success',
+                'message' => '✅ User created successfully!'
+            ];
             redirect('/users');
         } else {
-            echo "<p style='color:red;'>⚠️ Failed to create user. Please try again later.</p>";
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => '⚠️ Failed to create user. Please try again later.'
+            ];
+            redirect('/users/create');
         }
 
     } else {
         // ✅ Show the create form
         $this->call->view('users/create');
     }
-}   
+}
 
     // ✅ Admin only
     public function update($id)

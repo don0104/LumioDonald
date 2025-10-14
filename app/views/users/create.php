@@ -182,9 +182,33 @@
     .link-wrapper a:hover {
       text-decoration: underline;
     }
+    .alert {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+}
+.alert.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.alert.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
   </style>
 </head>
 <body>
+  <?php if (isset($_SESSION['flash'])): ?>
+  <div class="alert <?= $_SESSION['flash']['type']; ?>">
+    <?= $_SESSION['flash']['message']; ?>
+  </div>
+  <?php unset($_SESSION['flash']); ?>
+<?php endif; ?>
+
   <div class="create-user">
     <h2>Create User</h2>
     <form method="POST" action="<?= site_url('users/create'); ?>">
@@ -214,6 +238,13 @@
     </div>
   </div>
 </body>
+<script>
+setTimeout(() => {
+  const alert = document.querySelector('.alert');
+  if (alert) alert.style.display = 'none';
+}, 3000);
+</script>
+
 </html>
 
 </html>
