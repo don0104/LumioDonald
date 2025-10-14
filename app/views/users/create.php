@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create User</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -29,12 +29,7 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
       padding: 40px 35px;
       text-align: center;
-      transition: 0.3s ease;
-    }
-
-    .create-user:hover {
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
+      position: relative;
     }
 
     .create-user h2 {
@@ -42,14 +37,7 @@
       font-weight: 600;
       color: #2e7d32;
       margin-bottom: 25px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
+    } 
     .inputBox input {
       width: 100%;
       padding: 14px 15px;
@@ -66,12 +54,7 @@
       border-color: #4caf50;
       box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
       background: #fff;
-    }
-
-    .inputBox input::placeholder {
-      color: #999;
-    }
-
+    } 
     button {
       width: 100%;
       padding: 14px;
@@ -82,8 +65,7 @@
       font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      letter-spacing: 0.5px;
+     transition: all 0.3s ease;
     }
 
     button:hover {
@@ -92,124 +74,63 @@
       transform: translateY(-1px);
     }
 
-    .link-wrapper {
-      text-align: center;
+   .link-wrapper {
       margin-top: 20px;
     }
 
     .link-wrapper a {
       font-size: 0.95em;
       color: #4caf50;
-      text-decoration: none;
-      transition: color 0.3s ease;
+     text-decoration: none;
     }
 
     .link-wrapper a:hover {
       text-decoration: underline;
       color: #2e7d32;
     }
-  </style>
-</head>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create User</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7faf7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
 
-    .create-user {
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      width: 360px;
-    }
-
-    h2 {
-      color: #2e7d32;
-      margin-bottom: 24px;
-    }
-
-    .inputBox {
-      margin-bottom: 16px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-
-    button {
-      background-color: #43a047;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 6px;
-      width: 100%;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #388e3c;
-    }
-
-    .link-wrapper {
-      margin-top: 20px;
-    }
-
-    .link-wrapper a {
-      text-decoration: none;
-      color: #2e7d32;
-      font-size: 14px;
-    }
-
-    .link-wrapper a:hover {
-      text-decoration: underline;
-    }
+    /* ✅ Flash alert styling */
     .alert {
-  padding: 10px 15px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  font-family: Arial, sans-serif;
-}
-.alert.success {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-.alert.error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      font-family: "Poppins", sans-serif;
+      font-size: 0.9em;
+      text-align: left;
+       display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
 
+    .alert i {
+      font-size: 1.1em;
+    }
+
+    .alert.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
   </style>
 </head>
 <body>
-  <?php if (isset($_SESSION['flash'])): ?>
-  <div class="alert <?= $_SESSION['flash']['type']; ?>">
-    <?= $_SESSION['flash']['message']; ?>
-  </div>
-  <?php unset($_SESSION['flash']); ?>
-<?php endif; ?>
-
   <div class="create-user">
+
+    <!-- ✅ Alert now INSIDE container -->
+    <?php if (isset($_SESSION['flash'])): ?>
+      <div class="alert <?= $_SESSION['flash']['type']; ?>">
+        <i class="fa <?= $_SESSION['flash']['type'] === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-check'; ?>"></i>
+        <?= $_SESSION['flash']['message']; ?>
+      </div>
+      <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
     <h2>Create User</h2>
     <form method="POST" action="<?= site_url('users/create'); ?>">
       <div class="inputBox">
@@ -220,13 +141,9 @@
       <div class="inputBox">
         <input type="email" name="email" placeholder="Email" required 
                value="<?= isset($email) ? html_escape($email) : '' ?>">
-      </div>
-
-      <!-- Default role hidden -->
+    </div>
       <input type="hidden" name="role" value="<?= isset($role) ? html_escape($role) : 'user' ?>">
-
-      <!-- Optional password input -->
-      <div class="inputBox">
+        <div class="inputBox">
         <input type="password" name="password" placeholder="Password" required>
       </div>
 
@@ -237,14 +154,13 @@
       <a href="<?= site_url('/users'); ?>">← Return to Home</a>
     </div>
   </div>
+
+  <script>
+    // auto hide alert after 3 seconds
+    setTimeout(() => {
+      const alert = document.querySelector('.alert');
+      if (alert) alert.style.display = 'none';
+    }, 3000);
+  </script>
 </body>
-<script>
-setTimeout(() => {
-  const alert = document.querySelector('.alert');
-  if (alert) alert.style.display = 'none';
-}, 3000);
-</script>
-
-</html>
-
 </html>
