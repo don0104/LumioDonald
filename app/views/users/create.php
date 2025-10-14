@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Create User</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     :root {
-      --primary-color: #43a047;
-      --primary-hover: #388e3c;
-      --success-bg: #d4edda;
-      --success-text: #155724;
-      --error-bg: #f8d7da;
-      --error-text: #721c24;
-      --neutral-bg: #f6f9f7;
-      --card-bg: #ffffff;
-      --border: #e0e0e0;
+      --primary: #3b82f6;
+      --primary-light: #dbeafe;
+      --text-dark: #1e293b;
+      --bg-light: #f8fafc;
+      --white: #ffffff;
+      --success-bg: #d1fae5;
+      --success-text: #065f46;
+      --error-bg: #fee2e2;
+      --error-text: #b91c1c;
     }
 
     * {
@@ -27,119 +27,50 @@
     }
 
     body {
-      background: var(--neutral-bg);
+      background: var(--bg-light);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       padding: 20px;
     }
 
-    .create-user {
-      background: var(--card-bg);
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      padding: 40px 35px;
+    .container {
       width: 100%;
       max-width: 420px;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      padding: 35px 30px;
       text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-    }
-
-    .create-user:hover {
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-      transform: translateY(-2px);
     }
 
     h2 {
       font-size: 1.8em;
-      color: var(--primary-hover);
+      color: var(--primary);
       margin-bottom: 25px;
     }
 
     .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: left;
+      font-size: 0.95em;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
       gap: 10px;
-      padding: 12px 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      font-size: 0.95em;
-      text-align: left;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-      animation: fadeIn 0.3s ease-in;
+      animation: fadeIn 0.4s ease;
     }
 
     .alert.success {
       background: var(--success-bg);
       color: var(--success-text);
-      border: 1px solid #c3e6cb;
     }
 
     .alert.error {
       background: var(--error-bg);
       color: var(--error-text);
-      border: 1px solid #f5c6cb;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .inputBox input {
-      width: 100%;
-      padding: 14px 15px;
-      font-size: 1em;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: #f8f9fa;
-      color: #333;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-
-    .inputBox input:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.15);
-      background: #fff;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--primary-color), #66bb6a);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    button:hover {
-      background: linear-gradient(135deg, var(--primary-hover), #57a856);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.25);
-    }
-
-    .link-wrapper {
-      margin-top: 20px;
-    }
-
-    .link-wrapper a {
-      text-decoration: none;
-      color: var(--primary-color);
-      font-size: 0.95em;
-      transition: color 0.3s ease;
-    }
-
-    .link-wrapper a:hover {
-      text-decoration: underline;
-      color: var(--primary-hover);
     }
 
     @keyframes fadeIn {
@@ -147,34 +78,76 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ✅ Responsive adjustments */
-    @media (max-width: 480px) {
-      .create-user {
-        padding: 30px 25px;
-        border-radius: 12px;
-      }
+    .inputBox {
+      margin-bottom: 15px;
+      text-align: left;
+    }
 
+    .inputBox input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f9fafb;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .inputBox input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+      background: var(--white);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 1.05em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .link-wrapper {
+      margin-top: 20px;
+    }
+
+    .link-wrapper a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.95em;
+    }
+
+    .link-wrapper a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 20px;
+      }
       h2 {
         font-size: 1.5em;
-      }
-
-      button {
-        font-size: 0.95em;
-        padding: 12px;
-      }
-
-      .alert {
-        font-size: 0.85em;
       }
     }
   </style>
 </head>
 <body>
-  <div class="create-user">
-    <!-- ✅ Flash Message -->
+  <div class="container">
+    
+    <!-- ✅ Flash Alert -->
     <?php if (isset($_SESSION['flash'])): ?>
       <div class="alert <?= $_SESSION['flash']['type']; ?>">
-        <i class="fa <?= $_SESSION['flash']['type'] === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-check'; ?>"></i>
+        <i class="fa-solid <?= $_SESSION['flash']['type'] == 'error' ? 'fa-triangle-exclamation' : 'fa-circle-check'; ?>"></i>
         <?= $_SESSION['flash']['message']; ?>
       </div>
       <?php unset($_SESSION['flash']); ?>
@@ -199,7 +172,7 @@
         <input type="password" name="password" placeholder="Password" required>
       </div>
 
-      <button type="submit"><i class="fa fa-user-plus"></i> Create User</button>
+      <button type="submit">Create User</button>
     </form>
 
     <div class="link-wrapper">
@@ -208,11 +181,10 @@
   </div>
 
   <script>
-    // Auto-hide flash message after 3 seconds
+    // Auto hide alert after 3 seconds
     setTimeout(() => {
       const alert = document.querySelector('.alert');
-      if (alert) alert.style.opacity = '0';
-      setTimeout(() => alert && alert.remove(), 500);
+      if (alert) alert.style.display = 'none';
     }, 3000);
   </script>
 </body>
