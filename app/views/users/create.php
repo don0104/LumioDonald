@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+    :root {
+      --primary-color: #43a047;
+      --primary-hover: #388e3c;
+      --success-bg: #d4edda;
+      --success-text: #155724;
+      --error-bg: #f8d7da;
+      --error-text: #721c24;
+      --neutral-bg: #f6f9f7;
+      --card-bg: #ffffff;
+      --border: #e0e0e0;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -15,115 +27,151 @@
     }
 
     body {
+      background: var(--neutral-bg);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: #f6f9f7;
+      padding: 20px;
     }
 
     .create-user {
-      width: 400px;
-      background: #ffffff;
+      background: var(--card-bg);
       border-radius: 16px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
       padding: 40px 35px;
+      width: 100%;
+      max-width: 420px;
       text-align: center;
-      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
     }
 
-    .create-user h2 {
-      font-size: 1.9em;
-      font-weight: 600;
-      color: #2e7d32;
+    .create-user:hover {
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: var(--primary-hover);
       margin-bottom: 25px;
-    } 
+    }
+
+    .alert {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-size: 0.95em;
+      text-align: left;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .alert.success {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert.error {
+      background: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid #f5c6cb;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
     .inputBox input {
       width: 100%;
       padding: 14px 15px;
       font-size: 1em;
-      color: #333;
-      background: #f8f9fa;
-      border: 1px solid #dce5dd;
+      border: 1px solid var(--border);
       border-radius: 8px;
+      background: #f8f9fa;
+      color: #333;
       outline: none;
       transition: all 0.3s ease;
     }
 
     .inputBox input:focus {
-      border-color: #4caf50;
-      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.15);
       background: #fff;
-    } 
+    }
+
     button {
       width: 100%;
       padding: 14px;
+      background: linear-gradient(135deg, var(--primary-color), #66bb6a);
+      color: #fff;
       border: none;
-      background: linear-gradient(135deg, #43a047, #66bb6a);
-      color: white;
-      font-size: 1.05em;
-      font-weight: 600;
       border-radius: 8px;
+      font-size: 1em;
+      font-weight: 600;
       cursor: pointer;
-     transition: all 0.3s ease;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
     button:hover {
-      background: linear-gradient(135deg, #388e3c, #57a856);
-      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25);
+      background: linear-gradient(135deg, var(--primary-hover), #57a856);
       transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.25);
     }
 
-   .link-wrapper {
+    .link-wrapper {
       margin-top: 20px;
     }
 
     .link-wrapper a {
+      text-decoration: none;
+      color: var(--primary-color);
       font-size: 0.95em;
-      color: #4caf50;
-     text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     .link-wrapper a:hover {
       text-decoration: underline;
-      color: #2e7d32;
+      color: var(--primary-hover);
     }
 
-    /* ✅ Flash alert styling */
-    .alert {
-      padding: 10px 15px;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      font-family: "Poppins", sans-serif;
-      font-size: 0.9em;
-      text-align: left;
-       display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .alert i {
-      font-size: 1.1em;
-    }
+    /* ✅ Responsive adjustments */
+    @media (max-width: 480px) {
+      .create-user {
+        padding: 30px 25px;
+        border-radius: 12px;
+      }
 
-    .alert.success {
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
+      h2 {
+        font-size: 1.5em;
+      }
 
-    .alert.error {
-      background: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
+      button {
+        font-size: 0.95em;
+        padding: 12px;
+      }
+
+      .alert {
+        font-size: 0.85em;
+      }
     }
   </style>
 </head>
 <body>
   <div class="create-user">
-
-    <!-- ✅ Alert now INSIDE container -->
+    <!-- ✅ Flash Message -->
     <?php if (isset($_SESSION['flash'])): ?>
       <div class="alert <?= $_SESSION['flash']['type']; ?>">
         <i class="fa <?= $_SESSION['flash']['type'] === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-check'; ?>"></i>
@@ -131,7 +179,9 @@
       </div>
       <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
+
     <h2>Create User</h2>
+
     <form method="POST" action="<?= site_url('users/create'); ?>">
       <div class="inputBox">
         <input type="text" name="username" placeholder="Username" required 
@@ -141,13 +191,15 @@
       <div class="inputBox">
         <input type="email" name="email" placeholder="Email" required 
                value="<?= isset($email) ? html_escape($email) : '' ?>">
-    </div>
+      </div>
+
       <input type="hidden" name="role" value="<?= isset($role) ? html_escape($role) : 'user' ?>">
-        <div class="inputBox">
+
+      <div class="inputBox">
         <input type="password" name="password" placeholder="Password" required>
       </div>
 
-      <button type="submit">Create User</button>
+      <button type="submit"><i class="fa fa-user-plus"></i> Create User</button>
     </form>
 
     <div class="link-wrapper">
@@ -156,10 +208,11 @@
   </div>
 
   <script>
-    // auto hide alert after 3 seconds
+    // Auto-hide flash message after 3 seconds
     setTimeout(() => {
       const alert = document.querySelector('.alert');
-      if (alert) alert.style.display = 'none';
+      if (alert) alert.style.opacity = '0';
+      setTimeout(() => alert && alert.remove(), 500);
     }, 3000);
   </script>
 </body>
