@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register | Modern Green</title>
+  <title>Register | POS Inventory</title>
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -22,7 +22,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: #f8faf9;
+      background: #dbe9ff; /* same light blue background */
     }
 
     .register {
@@ -30,9 +30,9 @@
       padding: 45px 40px;
       background: #ffffff;
       border-radius: 16px;
-      border: 1px solid #e0e0e0;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
       animation: fadeIn 0.8s ease;
+      border-top: 5px solid #4a90e2;
     }
 
     @keyframes fadeIn {
@@ -51,7 +51,7 @@
       font-size: 1.9em;
       font-weight: 600;
       margin-bottom: 25px;
-      color: #2e7d32;
+      color: #4a90e2;
       letter-spacing: 0.5px;
     }
 
@@ -66,8 +66,8 @@
       padding: 14px 45px 14px 15px;
       font-size: 1em;
       color: #333;
-      background: #f9f9f9;
-      border: 1px solid #cfd8dc;
+      background: #f5f8ff;
+      border: 1px solid #cdd9f0;
       outline: none;
       border-radius: 10px;
       transition: 0.3s ease;
@@ -76,9 +76,9 @@
 
     .inputBox input:focus,
     .inputBox select:focus {
-      border-color: #4caf50;
+      border-color: #4a90e2;
       background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
     }
 
     .inputBox input::placeholder {
@@ -97,14 +97,14 @@
     }
 
     .toggle-password:hover {
-      color: #2e7d32;
+      color: #4a90e2;
     }
 
     .register button {
       width: 100%;
       padding: 14px;
       border: none;
-      background: #4caf50;
+      background: #4a90e2;
       color: #fff;
       font-size: 1.1em;
       font-weight: 600;
@@ -115,9 +115,9 @@
     }
 
     .register button:hover {
-      background: #388e3c;
+      background: #4179c6;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
     }
 
     .group {
@@ -127,7 +127,7 @@
 
     .group a {
       font-size: 0.95em;
-      color: #2e7d32;
+      color: #4a90e2;
       text-decoration: none;
       font-weight: 500;
       transition: 0.3s;
@@ -135,7 +135,7 @@
 
     .group a:hover {
       text-decoration: underline;
-      color: #1b5e20;
+      color: #4179c6;
     }
   </style>
 </head>
