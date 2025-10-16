@@ -5,18 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin Dashboard | Students Info</title>
 
-  <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     :root {
       --primary: #3b82f6;
-      --primary-light: #e0f2fe;
-      --primary-dark: #2563eb;
-      --text-dark: #1e293b;
+      --primary-dark: #1d4ed8;
+      --accent: #60a5fa;
+      --bg: #f1f5f9;
       --white: #ffffff;
-      --bg-light: #f8fafc;
+      --text-dark: #0f172a;
       --error: #ef4444;
     }
 
@@ -26,22 +25,23 @@
     }
 
     body {
-      background: var(--bg-light);
+      background: linear-gradient(180deg, #e0f2fe, #ffffff);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 40px 15px;
+      padding: 40px 20px;
     }
 
+    /* Dashboard Container */
     .dashboard {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1250px;
       background: var(--white);
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
       overflow: hidden;
-      animation: fadeIn 0.6s ease;
+      animation: fadeIn 0.8s ease;
     }
 
     @keyframes fadeIn {
@@ -49,117 +49,143 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Header Section */
+    /* Header */
     .dashboard-header {
-      background: var(--primary);
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
       color: var(--white);
-      padding: 20px 30px;
+      padding: 25px 35px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
     }
 
     .dashboard-header h2 {
+      font-size: 1.8em;
       font-weight: 600;
-      font-size: 1.6em;
-      margin: 0;
+      letter-spacing: 0.5px;
     }
 
     .logout-btn {
       background: var(--white);
-      color: var(--primary);
+      color: var(--primary-dark);
       border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
       font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
       transition: 0.3s;
     }
 
     .logout-btn:hover {
-      background: var(--primary-dark);
+      background: var(--accent);
       color: var(--white);
+      transform: translateY(-2px);
     }
 
-    /* Content Section */
+    /* Content */
     .dashboard-content {
       padding: 30px;
     }
 
     .welcome-card {
-      background: var(--primary-light);
-      border-left: 4px solid var(--primary);
-      padding: 15px 20px;
-      border-radius: 8px;
+      background: rgba(59, 130, 246, 0.07);
+      border-left: 5px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 12px;
       margin-bottom: 25px;
       color: var(--text-dark);
       font-weight: 500;
+      backdrop-filter: blur(8px);
     }
 
-    .search-section {
+    /* Search + Create Section */
+    .top-section {
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-bottom: 20px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .search-section input {
+    .search-bar {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar input {
       padding: 10px 14px;
+      border-radius: 10px;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      width: 240px;
       transition: 0.3s;
     }
 
-    .search-section input:focus {
+    .search-bar input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-light);
+      box-shadow: 0 0 0 3px #bfdbfe;
       outline: none;
     }
 
-    .search-section button {
+    .search-bar button {
       background: var(--primary);
       color: var(--white);
       border: none;
       padding: 10px 16px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: 500;
       transition: 0.3s;
     }
 
-    .search-section button:hover {
+    .search-bar button:hover {
       background: var(--primary-dark);
       transform: translateY(-1px);
     }
 
-    /* Table */
-    .table-container {
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    .btn-create {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: var(--white);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .btn-create:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Table Card */
+    .table-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: 0.3s;
+    }
+
+    .table-card:hover {
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
     }
 
     th {
-      background: var(--primary-light);
-      color: var(--primary-dark);
-      padding: 12px;
+      background: var(--primary);
+      color: var(--white);
       font-weight: 600;
+      padding: 12px;
       text-transform: uppercase;
       font-size: 0.9em;
-      border-bottom: 2px solid var(--primary);
     }
 
     td {
       padding: 12px;
-      border-bottom: 1px solid #e2e8f0;
       color: var(--text-dark);
-      vertical-align: middle;
+      border-bottom: 1px solid #e2e8f0;
     }
 
     tr:hover td {
@@ -167,15 +193,16 @@
       transition: 0.3s;
     }
 
+    /* Action Buttons */
     .btn-action {
       padding: 6px 12px;
       border-radius: 6px;
+      font-size: 0.85em;
       color: #fff;
       text-decoration: none;
-      font-size: 0.9em;
+      font-weight: 500;
       margin: 0 3px;
       transition: 0.3s;
-      display: inline-block;
     }
 
     .btn-update {
@@ -194,27 +221,6 @@
       background: #dc2626;
     }
 
-    /* Create Button */
-    .btn-create {
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      background: var(--primary);
-      color: var(--white);
-      padding: 14px;
-      font-weight: 600;
-      font-size: 1.05em;
-      border-radius: 10px;
-      text-decoration: none;
-      margin-top: 25px;
-      transition: 0.3s;
-    }
-
-    .btn-create:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
     .pagination-container {
       display: flex;
       justify-content: center;
@@ -227,12 +233,24 @@
         text-align: center;
         gap: 10px;
       }
-      .search-section {
+
+      .top-section {
         flex-direction: column;
         align-items: stretch;
       }
-      .search-section input {
+
+      .search-bar {
         width: 100%;
+        justify-content: center;
+      }
+
+      .search-bar input {
+        flex: 1;
+      }
+
+      .btn-create {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -240,39 +258,35 @@
 <body>
 
   <div class="dashboard">
-    <!-- Header -->
     <div class="dashboard-header">
-      <h2><?= ($logged_in_user['role'] === 'admin') ? 'Admin Dashboard' : 'User Dashboard'; ?></h2>
+      <h2><i class="fa-solid fa-graduation-cap"></i> <?= ($logged_in_user['role'] === 'admin') ? 'Admin Dashboard' : 'User Dashboard'; ?></h2>
       <a href="<?= site_url('auth/logout'); ?>"><button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></a>
     </div>
 
-    <!-- Content -->
     <div class="dashboard-content">
 
       <?php if(!empty($logged_in_user)): ?>
         <div class="welcome-card">
-          👋 Welcome, <strong><?= html_escape($logged_in_user['username']); ?></strong>
+          👋 Welcome back, <strong><?= html_escape($logged_in_user['username']); ?></strong>!
         </div>
       <?php else: ?>
-        <div class="welcome-card" style="background:#fee2e2; border-left:4px solid var(--error); color:var(--error);">
+        <div class="welcome-card" style="background:#fee2e2; border-left:5px solid var(--error); color:var(--error);">
           ⚠ Logged in user not found.
         </div>
       <?php endif; ?>
 
-      <div class="search-section">
-        <form method="get" action="<?= site_url('users'); ?>" style="display:flex; gap:10px; flex-wrap:wrap;">
-          <input 
-            type="text" 
-            name="q" 
-            value="<?= isset($q) ? htmlspecialchars($q) : ''; ?>" 
-            placeholder="Search student..."
-          >
+      <div class="top-section">
+        <form method="get" action="<?= site_url('users'); ?>" class="search-bar">
+          <input type="text" name="q" value="<?= isset($q) ? htmlspecialchars($q) : ''; ?>" placeholder="Search student..." />
           <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
         </form>
+
+        <?php if ($logged_in_user['role'] === 'admin'): ?>
+          <a href="<?= site_url('users/create'); ?>" class="btn-create"><i class="fa-solid fa-user-plus"></i> Add Student</a>
+        <?php endif; ?>
       </div>
 
-      <!-- Table -->
-      <div class="table-container table-responsive">
+      <div class="table-card table-responsive">
         <table class="table align-middle">
           <thead>
             <tr>
@@ -298,7 +312,7 @@
                 <td>*******</td>
                 <td><?= html_escape($u['role']); ?></td>
                 <td>
-                  <a href="<?= site_url('/users/update/'.$u['id']); ?>" class="btn-action btn-update"><i class="fa-solid fa-pen"></i> Update</a>
+                  <a href="<?= site_url('/users/update/'.$u['id']); ?>" class="btn-action btn-update"><i class="fa-solid fa-pen"></i> Edit</a>
                   <a href="<?= site_url('/users/delete/'.$u['id']); ?>" class="btn-action btn-delete" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa-solid fa-trash"></i> Delete</a>
                 </td>
               <?php else: ?>
@@ -314,9 +328,6 @@
         <?= $page; ?>
       </div>
 
-      <?php if ($logged_in_user['role'] === 'admin'): ?>
-        <a href="<?= site_url('users/create'); ?>" class="btn-create"><i class="fa-solid fa-user-plus"></i> Create New User</a>
-      <?php endif; ?>
     </div>
   </div>
 
